@@ -3,8 +3,8 @@ package burgers
 import (
 	"context"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"webform/pkg/crud/models"
 	"webform/pkg/crud/errors"
+	"webform/pkg/crud/models"
 )
 
 type BurgersSvc struct {

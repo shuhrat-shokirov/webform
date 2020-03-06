@@ -18,3 +18,6 @@ func (receiver *apiError) Error() string {
 func (receiver *apiError) Unwrap() error {
 	return receiver.err
 }
+func New(text string) string {
+	return text
+}
