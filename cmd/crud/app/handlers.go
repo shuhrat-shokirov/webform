@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"strconv"
+	"time"
 	"webform/pkg/crud/models"
 )
 
@@ -106,5 +107,18 @@ func (receiver *server) handleFavicon() func(http.ResponseWriter, *http.Request)
 		if err != nil {
 			log.Print(err)
 		}
+	}
+}
+
+
+func (receiver *server) handleSlow() func(responseWriter http.ResponseWriter, request *http.Request) {
+	return func(responseWriter http.ResponseWriter, request *http.Request) {
+		select {
+		case <-request.Context().Done():
+			return
+		case <-time.After(time.Second * 10):
+			_, _ = responseWriter.Write([]byte("Hello slow!"))
+		}
+
 	}
 }

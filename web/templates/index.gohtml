@@ -8,22 +8,27 @@
     <title>{{.Title}}</title>
 </head>
 <body >
+<style>
+    body {background-image: url("https://www.howsweeteats.com/wp-content/uploads/2018/06/veg-burgers-I-howsweeteats.com-15.jpg");
+        height: 100%;
+        color: gray;
+        background-size: cover;}
+</style>
 <h1>{{.Title}}</h1>
 <form action="/burgers/save" method="POST" >
     <input type="hidden" name="action" value="save" >
     <input type="text" name="name" placeholder="Название продукта">
     <input type="number" name="price" placeholder="Цена">
-    <textarea name="description" placeholder="Описание" cols="30" maxlength = "100" rows = "2" style="height: 30px"></textarea>
-    <button>Ok</button>
+    <button>Добавить</button>
 </form>
-<ul style="color: #140304">
+<ul style="color: antiquewhite">
     {{range $index, $val := .Burgers}}
         <li>
             {{$val.Name}} {{$val.Price}}
             <form action="/burgers/remove" method="POST">
                 <input type="hidden" name="action" value="remove">
                 <input type="hidden" name="id" value="{{$val.Id}}">
-                <button>Remove</button>
+                <button>Удалить</button>
             </form>
         </li>
     {{end}}

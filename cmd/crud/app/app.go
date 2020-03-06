@@ -44,3 +44,4 @@ func NewServer(router http.Handler, pool *pgxpool.Pool, burgersSvc *burgers.Burg
 func (receiver *server) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	receiver.router.ServeHTTP(writer, request)
 }
+
