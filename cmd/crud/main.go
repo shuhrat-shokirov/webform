@@ -13,9 +13,9 @@ import (
 )
 
 var (
-	host = flag.String("host", "0.0.0.0", "Server host")
-	port = flag.String("port", "9999", "Server port")
-	dsn  = flag.String("dsn", "postgres://app:pass@localhost:5432/app", "Postgres DSN")
+	host = flag.String("host", "", "Server host")
+	port = flag.String("port", "", "Server port")
+	dsn  = flag.String("dsn", "", "Postgres DSN")
 )
 const envHost = "HOST"
 const envPort = "PORT"
