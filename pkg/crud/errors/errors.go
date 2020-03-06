@@ -2,19 +2,19 @@ package errors
 
 import "fmt"
 
-type mError struct {
+type apiError struct {
 	text string
 	err error
 }
 
-func ApiError(text string, err error) *mError {
-	return &mError{text: text, err: err}
+func NewApiError(text string, err error) *apiError {
+	return &apiError{text: text, err: err}
 }
 
-func (receiver *mError) Error() string {
+func (receiver *apiError) Error() string {
 	return fmt.Sprintf("error: %v", receiver.err.Error())
 }
 
-func (receiver *mError) Unwrap() error {
+func (receiver *apiError) Unwrap() error {
 	return receiver.err
 }

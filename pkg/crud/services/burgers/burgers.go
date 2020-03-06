@@ -22,12 +22,12 @@ func (service *BurgersSvc) BurgersList() (list []models.Burger, err error) {
 	list = make([]models.Burger, 0) // TODO: for REST API
 	conn, err := service.pool.Acquire(context.Background())
 	if err != nil {
-		return nil, errors.ApiError("can't execute pool: ", err)
+		return nil, errors.NewApiError("can't execute pool: ", err)
 	}
 	defer conn.Release()
 	rows, err := conn.Query(context.Background(), searchWearFalse)
 	if err != nil {
-		return nil, errors.ApiError("can't query: execute pool", err)
+		return nil, errors.NewApiError("can't query: execute pool", err)
 	}
 	defer rows.Close()
 
@@ -35,7 +35,7 @@ func (service *BurgersSvc) BurgersList() (list []models.Burger, err error) {
 		item := models.Burger{}
 		err := rows.Scan(&item.Id, &item.Name, &item.Price)
 		if err != nil {
-			return nil, errors.ApiError("can't scan row: ", err)
+			return nil, errors.NewApiError("can't scan row: ", err)
 		}
 		list = append(list, item)
 	}
@@ -50,12 +50,12 @@ func (service *BurgersSvc) BurgersList() (list []models.Burger, err error) {
 func (service *BurgersSvc) Save(model models.Burger) (err error) {
 	conn, err := service.pool.Acquire(context.Background())
 	if err != nil {
-		return errors.ApiError("can't execute pool: ", err)
+		return errors.NewApiError("can't execute pool: ", err)
 	}
 	defer conn.Release()
 	_, err = conn.Exec(context.Background(), insertToTable, model.Name, model.Price)
 	if err != nil {
-		return errors.ApiError("can't save burger: ", err)
+		return errors.NewApiError("can't save burger: ", err)
 	}
 	return nil
 }
@@ -63,12 +63,12 @@ func (service *BurgersSvc) Save(model models.Burger) (err error) {
 func (service *BurgersSvc) RemoveById(id int) (err error) {
 	conn, err := service.pool.Acquire(context.Background())
 	if err != nil {
-		return errors.ApiError("can't execute pool: ", err)
+		return errors.NewApiError("can't execute pool: ", err)
 	}
 	defer conn.Release()
 	_, err = conn.Exec(context.Background(), updateInTable, id)
 	if err != nil {
-		return errors.ApiError("can't remove burger: ", err)
+		return errors.NewApiError("can't remove burger: ", err)
 	}
 	return nil
 }
