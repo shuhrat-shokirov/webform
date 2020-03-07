@@ -21,6 +21,7 @@ func NewExactMux() *exactMux {
 }
 
 func (m *exactMux) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+
 	if handler, err := m.handler(request.Method, request.URL.Path); err == nil {
 		handler.ServeHTTP(writer, request)
 	}

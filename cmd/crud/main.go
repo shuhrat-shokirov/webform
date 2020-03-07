@@ -21,23 +21,18 @@ const envHost = "HOST"
 const envPort = "PORT"
 const envDSN  = "DATABASE_URL"
 
+func m(hostF string) (server string){
+	server, ok := os.LookupEnv(hostF)
+	if !ok {
+		server = *host
+	}
+	return
+}
 
 func main() {
 	flag.Parse()
-	serverHost, ok := os.LookupEnv(envHost)
-	if !ok {
-		serverHost = *host
-	}
-	serverPort, ok := os.LookupEnv(envPort)
-	if !ok {
-		serverPort = *port
-	}
-	serverDsn, ok := os.LookupEnv(envDSN)
-	if !ok {
-		serverDsn = *dsn
-	}
-	addr := net.JoinHostPort(serverHost, serverPort)
-	start(addr, serverDsn)
+	addr := net.JoinHostPort(m(envHost), m(envPort))
+	start(addr, m(envDSN))
 }
 
 func start(addr string, dsn string) {
