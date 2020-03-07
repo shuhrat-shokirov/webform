@@ -21,15 +21,6 @@ func NewExactMux() *exactMux {
 }
 
 func (m *exactMux) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	//ctx, cancel := context.WithTimeout(request.Context(), time.Second*5)
-	//request = request.WithContext(ctx)
-	//defer func() {
-	//	log.Print(ctx.Err())
-	//	cancel()
-	//	if ctx.Err() == context.DeadlineExceeded {
-	//		writer.WriteHeader(http.StatusGatewayTimeout)
-	//	}
-	//}()
 	if handler, err := m.handler(request.Method, request.URL.Path); err == nil {
 		handler.ServeHTTP(writer, request)
 	}
